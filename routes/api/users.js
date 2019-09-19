@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-// const {check, validationResult} = require("express-validator/check");
 const {check, validationResult} = require("express-validator");
 const User = require("../../models/User");
 const gravatar = require("gravatar");
@@ -8,7 +7,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 
-//Registrar un nuevo usario
+//Registrar un nuevo usuario
 router.post("/", [
     check("name", "Name is required").not().isEmpty(),
     check("email", "Please, include a valid email").isEmail(),

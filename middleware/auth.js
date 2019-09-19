@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require("config");
 
+// Autorización de usuarios mediante token
 module.exports = (req, res, next) => {
   //Tomar el token desde el header del request
   const token = req.header("x-auth-token");
