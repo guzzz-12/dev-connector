@@ -3,7 +3,11 @@ const connectDB = require("./config/db");
 
 const app = express();
 
+//Conectarse con la base de datos
 connectDB();
+
+//Middlewares
+app.use(express.json({extended: false}))
 
 const port = process.env.PORT || 5000;
 
