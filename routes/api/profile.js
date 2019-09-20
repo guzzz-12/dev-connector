@@ -83,6 +83,41 @@ router.post("/", [auth, [
     console.error(error.message);
     res.status(500).send("Server error")
   }
+});
+
+//Obtener todos los perfiles de los usuarios
+router.get("/", async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate("user", ["name", "avatar"]);
+    res.json(profiles);
+
+  } catch(error) {
+    console.error(error.message);
+    res.status(500).send("Server error")
+  }
+});
+
+//Obtener el perfil de un usuario
+router.get("/user/:userId", async (req, res) => {
+  try {
+    const profile = await Profile.findOne({user: req.params.userId}).populate("user", ["name", "avatar"]);
+    if (!profile) {
+      return res.status(404).json({
+        msg: "No profile for that user"
+      })
+    }
+    res.json(profile);
+
+  } catch(error) {
+    console.error(error.message);
+    //Mensaje de error cuando la id no corresponde con el formato de las ids de la base de datos
+    if(error.kind === "ObjectId") {
+      return res.status(404).json({
+        msg: "No profile for that user"
+      })
+    }
+    res.status(500).send("Server error")
+  }
 })
 
 module.exports = router;
