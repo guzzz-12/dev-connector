@@ -41,7 +41,7 @@ async (req, res) => {
     let user = await User.findOne({email: email});
     if(!user) {
       return res.status(400).json({
-        errors: [{message: "Wrong email or password"}]
+        errors: [{msg: "Wrong email or password"}]
       })
     }
 
@@ -49,7 +49,7 @@ async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({
-        errors: [{message: "Wrong email or password"}]
+        errors: [{msg: "Wrong email or password"}]
       })
     }
 

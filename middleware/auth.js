@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
   //Chequear si existe el token
   if (!token) {
     return res.status(401).json({
-      message: "You're not authorized to access this resource"
+      msg: "You're not authorized to access this resource"
     })
   }
 
@@ -21,7 +21,7 @@ module.exports = (req, res, next) => {
 
   } catch(error) {
     res.status(401).json({
-      message: "Invalid token"
+      msg: "Invalid token"
     })
   }
 }
