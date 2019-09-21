@@ -118,6 +118,23 @@ router.get("/user/:userId", async (req, res) => {
     }
     res.status(500).send("Server error")
   }
-})
+});
+
+//Borrar perfil, cuenta y posts de un usuario
+router.delete("/", auth, async (req, res) => {
+  try {
+    //Borrar el perfil del usuario
+    await Profile.findOneAndRemove({user: req.user.id});
+
+    //Borrar el usuario
+    await User.findOneAndRemove({_id: req.user.id});
+
+    res.json({msg: "User deleted from database"});
+
+  } catch(error) {
+    console.error(error.message);
+    res.status(500).send("Server error")
+  }
+});
 
 module.exports = router;
