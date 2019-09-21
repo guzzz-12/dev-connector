@@ -137,4 +137,43 @@ router.delete("/", auth, async (req, res) => {
   }
 });
 
+//Agregar experiencia al perfil del usuario
+router.put("/experience", [auth, [
+  check("title", "Title is required").not().isEmpty(),
+  check("company", "Company is required").not().isEmpty(),
+  check("from", "From date is required").not().isEmpty(),
+]], async (req, res) => {
+  //Chequear si la data ingresada es válida
+  const errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array()
+    })
+  }
+
+  //Extraer la data ingresada en el formulario
+  const {title, company, location, from, to, current, description} = req.body;
+  const newExperience = {
+    title,
+    company,
+    location,
+    from,
+    to,
+    current,
+    description
+  }
+
+  try {
+    const profile = await Profile.findOne({user: req.user.id});
+    profile.experience.unshift(newExperience);
+    await profile.save();
+
+    res.status(200).json(profile)
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error")
+  }
+})
+
 module.exports = router;
