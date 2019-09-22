@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
-const config = require("config");
+// const config = require("config");
+const jwt_secret = process.env.JWT_SECRET;
 
 // Autorización de usuarios mediante token
 module.exports = (req, res, next) => {
@@ -15,7 +16,7 @@ module.exports = (req, res, next) => {
 
   //Verificar el token y continuar si éste existe y es válido
   try {
-    const decoded = jwt.verify(token, config.get("jwtSecret"));
+    const decoded = jwt.verify(token, jwt_secret);
     req.user = decoded.user;
     next();
 

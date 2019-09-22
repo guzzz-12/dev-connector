@@ -1,4 +1,0 @@
-{
-  "mongoURI": "mongodb://jegq:lOe0dqHGyIBXhtJJ@cluster0-shard-00-00-6rneu.mongodb.net:27017,cluster0-shard-00-01-6rneu.mongodb.net:27017,cluster0-shard-00-02-6rneu.mongodb.net:27017/dev-connector?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority",
-  "jwtSecret": "temporal_secret_token"
-}

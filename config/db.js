@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const config = require("config");
-const db = config.get("mongoURI");
+// const config = require("config");
+const db = process.env.MONGO_URI.replace("<password>", process.env.MONGO_PASSWORD);
 
 const connectDB = async () => {
   try {

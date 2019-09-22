@@ -5,7 +5,8 @@ const User = require("../../models/User");
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require("config");
+// const config = require("config");
+const jwt_secret = process.env.JWT_SECRET;
 
 //Registrar un nuevo usuario
 router.post("/", [
@@ -55,7 +56,7 @@ router.post("/", [
         }
       }
 
-      jwt.sign(payload, config.get("jwtSecret"), {
+      jwt.sign(payload, jwt_secret, {
         expiresIn: 3600
       }, (error, token) => {
         if (error) {

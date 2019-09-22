@@ -1,6 +1,11 @@
 const express = require("express");
+//Tomar las variables de entorno
+const dotenv = require("dotenv");
+dotenv.config({path: "./config.env"});
+
 const connectDB = require("./config/db");
 
+//Inicializar la aplicación
 const app = express();
 
 //Conectarse con la base de datos
