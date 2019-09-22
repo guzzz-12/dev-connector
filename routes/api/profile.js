@@ -174,6 +174,24 @@ router.put("/experience", [auth, [
     console.error(error.message);
     res.status(500).send("Server error")
   }
+});
+
+//Borrar experiencia del perfil de usuario
+router.delete("/experience/:expId", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({user: req.user.id});
+    const removedIndex = profile.experience.map(el => {
+      return el.id
+    }).indexOf(req.params.expId);
+
+    profile.experience.splice(removedIndex, 1);
+    await profile.save();
+    res.json(profile);
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error")
+  }
 })
 
 module.exports = router;
