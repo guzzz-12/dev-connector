@@ -138,7 +138,7 @@ router.delete("/", auth, async (req, res) => {
 });
 
 //Agregar experiencia al perfil del usuario
-router.put("/experience", [auth, [
+router.patch("/experience", [auth, [
   check("title", "Title is required").not().isEmpty(),
   check("company", "Company is required").not().isEmpty(),
   check("from", "From date is required").not().isEmpty(),
@@ -168,7 +168,7 @@ router.put("/experience", [auth, [
     profile.experience.unshift(newExperience);
     await profile.save();
 
-    res.status(200).json(profile)
+    res.status(200).json(profile);
 
   } catch (error) {
     console.error(error.message);
@@ -185,6 +185,64 @@ router.delete("/experience/:expId", auth, async (req, res) => {
     }).indexOf(req.params.expId);
 
     profile.experience.splice(removedIndex, 1);
+    await profile.save();
+    res.json(profile);
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error")
+  }
+});
+
+//Agregar education al perfil del usuario
+router.patch("/education", [auth, [
+  check("school", "School is required").not().isEmpty(),
+  check("degree", "Degree is required").not().isEmpty(),
+  check("fieldOfStudy", "The field of study is required").not().isEmpty(),
+  check("from", "The 'From' date of study is required").not().isEmpty(),
+]], async (req, res) => {
+  //Chequear si la data ingresada es válida
+  const errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array()
+    })
+  }
+
+  //Extraer la data ingresada en el formulario
+  const {school, degree, fieldOfStudy, from, to, current, description} = req.body;
+  const newEducation = {
+    school,
+    degree,
+    fieldOfStudy,
+    from,
+    to,
+    current,
+    description
+  }
+
+  try {
+    const profile = await Profile.findOne({user: req.user.id});
+    profile.education.unshift(newEducation);
+    await profile.save();
+
+    res.status(200).json(profile);
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error")
+  }
+});
+
+//Borrar education del perfil de usuario
+router.delete("/education/:educationId", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({user: req.user.id});
+    const removedIndex = profile.education.map(el => {
+      return el.id
+    }).indexOf(req.params.educationId);
+
+    profile.education.splice(removedIndex, 1);
     await profile.save();
     res.json(profile);
 
