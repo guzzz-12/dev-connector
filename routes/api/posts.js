@@ -211,9 +211,53 @@ router.post("/comment/:postId",
       
     } catch (error) {
       console.log(error.message);
+      if(error.kind === "ObjectId") {
+        return res.status(404).json({msg: "Post not found"})
+      }
       res.status(500).send("Server error")
     }
   }
 );
+
+//Borrar comentarios de los posts
+router.patch("/comment/:postId/:commentId", auth, async (req,res) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+
+    //Chequear si existe el post
+    if(!post) {
+      return res.status(404).json({msg: "Post not found"})
+    }
+    
+    //Buscar el comentario
+    const deletedComment = post.comments.find(comment => {
+      return comment.id.toString() === req.params.commentId
+    });
+
+    //Chequear si el comentario existe
+    if(!deletedComment) {
+      return res.status(404).json({msg: "Comment doesn't exist"})
+    }
+
+    //Chequear si el usuario es el autor del comentario
+    if(deletedComment.user.toString() !== req.user.id) {
+      return res.status(401).json({msg: "You can remove only your own comments"})
+    }
+
+    //Si el comentario existe y el usuario es el autor, removerlo del array de comentarios y actualizar el post
+    const deletedCommentIndex = post.comments.indexOf(deletedComment);
+    post.comments.splice(deletedCommentIndex, 1);
+    await post.save();
+    
+    res.json(post.comments);
+
+  } catch (error) {
+    console.log(error.message);
+      if(error.kind === "ObjectId") {
+        return res.status(404).json({msg: "Post not found"})
+      }
+    res.status(500).send("Server error")
+  }
+})
 
 module.exports = router;
