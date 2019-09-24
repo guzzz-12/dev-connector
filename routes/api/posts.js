@@ -41,4 +41,37 @@ router.post("/",
   }
 );
 
+//Obtener todos los posts
+router.get("/", auth, async (req, res) => {
+  try {
+    //Obtener los posts y ordenarlos desde el más reciente
+    const posts = await Post.find().sort({date: -1});
+    res.json(posts);
+    
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error")
+  }
+});
+
+//Obtener un post por su ID
+router.get("/:postId", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+
+    if(!post) {
+      return res.status(404).json({msg: "Post not found"})
+    }
+
+    res.json(post);
+    
+  } catch (error) {
+    console.log(error.message);
+    if(error.kind === "ObjectId") {
+      return res.status(404).json({msg: "Post not found"})
+    }
+    res.status(500).send("Server error")
+  }
+});
+
 module.exports = router;
