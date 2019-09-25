@@ -49,6 +49,7 @@ const Register = () => {
             name="email"
             value={email}
             onChange={e => onChangeHandler(e)}
+            required
           />
           <small className="form-text"
             >This site uses Gravatar so if you want a profile image, use a
@@ -63,6 +64,7 @@ const Register = () => {
             minLength="6"
             value={password}
             onChange={e => onChangeHandler(e)}
+            required
           />
         </div>
         <div className="form-group">
@@ -73,6 +75,7 @@ const Register = () => {
             minLength="6"
             value={passwordConfirm}
             onChange={e => onChangeHandler(e)}
+            required
           />
         </div>
         <input type="submit" className="btn btn-primary" value="Register" />
