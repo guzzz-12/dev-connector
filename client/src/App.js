@@ -6,20 +6,26 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import "./App.css";
 
+//Configuración de Redux
+import {Provider} from "react-redux";
+import store from "./store"; 
+
 const App = () => {
   return (
-    <BrowserRouter>
-      <React.Fragment>
-        <Navbar />
-        <Route exact path="/" component={Landing} />
-        <section className="container">
-          <Switch>
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-          </Switch>
-        </section>
-      </React.Fragment>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <React.Fragment>
+          <Navbar />
+          <Route exact path="/" component={Landing} />
+          <section className="container">
+            <Switch>
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+            </Switch>
+          </section>
+        </React.Fragment>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
