@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {setAlert} from "../../actions/alert";
+import {register} from "../../actions/auth";
 import PropTypes from "prop-types";
 
 const Register = (props) => {
@@ -21,12 +22,20 @@ const Register = (props) => {
     })
   }
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     if(password !== passwordConfirm) {
       props.setAlert("Passwords don't match", "danger")
     } else {
-      console.log(formData);
+      //Ejecutar el action para registrar el usuario
+      props.register(formData);
+      //Limpiar los datos del formulario
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        passwordConfirm: ""
+      })
     }
   }
 
@@ -91,13 +100,17 @@ const Register = (props) => {
 };
 
 Register.propTypes = {
-  setAlert: PropTypes.func.isRequired
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setAlert: (msg, alertType) => {
       dispatch(setAlert(msg, alertType))
+    },
+    register: (data) => {
+      dispatch(register(data))
     }
   }
 }
