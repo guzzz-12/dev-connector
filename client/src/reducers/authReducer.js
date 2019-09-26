@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
   switch(action.type) {
     case USER_LOADED:
       return {
-        ...initialState,
+        ...state,
         isAuthenticated: true,
         loading: false,
         user: action.payload.user
@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
     case LOGOUT:
       localStorage.removeItem("token");
       return {
-        ...initialState,
+        ...state,
         token: null,
         isAuthenticated: false,
         loading: false,
