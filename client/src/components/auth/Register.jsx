@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {setAlert} from "../../actions/alert";
 import {register} from "../../actions/auth";
@@ -37,6 +37,10 @@ const Register = (props) => {
         passwordConfirm: ""
       })
     }
+  }
+
+  if(props.isAuth) {
+    return <Redirect to="/dasboard" />   
   }
 
   return (
@@ -101,7 +105,14 @@ const Register = (props) => {
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
+  isAuth: PropTypes.bool
+}
+
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.authReducer.isAuthenticated
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -115,4 +126,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
