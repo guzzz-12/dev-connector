@@ -7,6 +7,8 @@ import Register from "./components/auth/Register";
 import Alert from "./components/layout/Alert";
 import {loadUser} from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
+import PrivateRoute from "./components/routing/PrivateRoute";
+import Dashboard from "./components/dashboard/Dashboard";
 import "./App.css";
 
 //Configuración de Redux
@@ -37,6 +39,7 @@ const App = () => {
             <Switch>
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
           </section>
         </React.Fragment>
