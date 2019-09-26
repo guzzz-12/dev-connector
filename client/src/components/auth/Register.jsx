@@ -40,7 +40,7 @@ const Register = (props) => {
   }
 
   if(props.isAuth) {
-    return <Redirect to="/dasboard" />   
+    return <Redirect to="/dashboard" />   
   }
 
   return (
