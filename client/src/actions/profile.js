@@ -49,13 +49,10 @@ export const createProfile = (formData, history, edit = false) => {
         payload: res.data
       });
       dispatch(setAlert(edit ? "Profile updated!" : "Profile created!", "success"));
-
-      if(!edit) {
-        history.push("/dashboard");
-      }
+      
+      history.push("/dashboard");
 
     } catch (error) {
-      console.log(error.response)
       const errors = error.response.data.errors;
       if(errors) {
         errors.forEach(err => {

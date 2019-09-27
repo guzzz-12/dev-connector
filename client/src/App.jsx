@@ -11,6 +11,7 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import "./App.css";
 import CreateProfile from "./components/profile-form/CreateProfile";
+import EditProfile from "./components/profile-form/EditProfile";
 
 //Configuración de Redux
 import {Provider} from "react-redux";
@@ -42,6 +43,7 @@ const App = () => {
               <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+              <PrivateRoute exact path="/edit-profile" component={EditProfile} />
             </Switch>
           </section>
         </React.Fragment>
