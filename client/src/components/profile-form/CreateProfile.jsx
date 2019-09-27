@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
+import {createProfile} from "../../actions/profile";
 
 const CreateProfile = (props) => {
   const [formData, setFormData] = useState({
@@ -27,6 +28,11 @@ const CreateProfile = (props) => {
     });
   }
 
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    props.createUserProfile(formData, props.history)
+  }
+
   return (
     <React.Fragment>
       <h1 className="large text-primary">
@@ -37,7 +43,7 @@ const CreateProfile = (props) => {
         profile stand out
       </p>
       <small>* = required field</small>
-      <form className="form">
+      <form className="form" onSubmit={onSubmitHandler}>
         <div className="form-group">
           <select name="status" onChange={onChangeHandler}>
             <option value="0">* Select Professional Status</option>
@@ -165,14 +171,23 @@ const CreateProfile = (props) => {
                 value={formData.instagram}
                 onChange={onChangeHandler} />
             </div>
-            <input type="submit" className="btn btn-primary my-1" />
-            <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
           </React.Fragment>
         )}
-
+        <input type="submit" className="btn btn-primary my-1" />
+        <Link to="/dashboard" className="btn btn-light my-1">
+          Go Back
+        </Link>
       </form>
     </React.Fragment>
   );
 }
 
-export default CreateProfile;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createUserProfile: (data, history) => {
+      dispatch(createProfile(data, history))
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(withRouter(CreateProfile));
