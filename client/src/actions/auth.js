@@ -48,7 +48,6 @@ export const register = (data) => {
         payload: res.data
       });
       dispatch(loadUser());
-      dispatch(setAlert("Successfully registered", "success"));
 
     } catch (error) {
       const errors = error.response.data.errors;
@@ -86,7 +85,6 @@ export const login = (data) => {
         payload: res.data
       });
       dispatch(loadUser());
-      dispatch(setAlert("Successfully logged", "success"));
 
     } catch (error) {
       const errors = error.response.data.errors;
