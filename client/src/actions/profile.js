@@ -1,6 +1,6 @@
 import axios from "axios";
 import {setAlert} from "./alert";
-import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE } from "./types";
+import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE, CLEAR_PROFILE, DELETE_ACCOUNT } from "./types";
 
 
 //Tomar el perfil del usuario actual
@@ -210,6 +210,39 @@ export const deleteEducation = (id) => {
           status: error.response.status
         }
       })
+    }
+  }
+}
+
+//Borrar perfil y cuenta del usuario
+export const deleteUserAccount = () => {
+  return async (dispatch) => {
+    if (window.confirm("Are you sure? This action can not be undone")) {
+      try {
+        await axios({
+          method: "DELETE",
+          url: "/api/profile"
+        });
+
+        dispatch({
+          type: CLEAR_PROFILE
+        });
+
+        dispatch({
+          type: DELETE_ACCOUNT
+        });
+
+        dispatch(setAlert("Your account has been permanently deleted", "success"))
+
+      } catch (error) {
+        dispatch({
+          type: PROFILE_ERROR,
+          payload: {
+            msg: error.response.statusText,
+            status: error.response.status
+          }
+        })
+      }
     }
   }
 }
