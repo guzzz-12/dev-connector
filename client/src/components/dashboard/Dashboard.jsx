@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {getCurrentProfile} from "../../actions/profile";
 import Spinner from "../layout/Spinner";
 import DashboardActions from "./DashboardActions";
+import Experience from "./Experience";
 
 const Dashboard = (props) => {
   useEffect(() => {
@@ -22,6 +23,7 @@ const Dashboard = (props) => {
         {props.profile !== null ?
           <React.Fragment>
             <DashboardActions />
+            <Experience experience={props.profile.experience} />
           </React.Fragment> :
           <React.Fragment>
             <p>You have not created a profile yet</p>
