@@ -173,7 +173,7 @@ const CreateProfile = (props) => {
             </div>
           </React.Fragment>
         )}
-        <input type="submit" className="btn btn-primary my-1" />
+        <input value="Submit" type="submit" className="btn btn-primary my-1" />
         <Link to="/dashboard" className="btn btn-light my-1">
           Go Back
         </Link>

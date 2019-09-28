@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
-        isAuthtenticated: true,
+        isAuthenticated: true,
         loading: false
       }
     case AUTH_ERROR:
