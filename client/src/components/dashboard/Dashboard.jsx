@@ -24,8 +24,12 @@ const Dashboard = (props) => {
         {props.profile !== null ?
           <React.Fragment>
             <DashboardActions />
-            <Experience experience={props.profile.experience} />
-            <Education education={props.profile.education} />
+            {props.profile.experience.length > 0 && (
+              <Experience experience={props.profile.experience} />
+            )}
+            {props.profile.education.length > 0 && (
+              <Education education={props.profile.education} />
+            )}
           </React.Fragment> :
           <React.Fragment>
             <p>You have not created a profile yet</p>
