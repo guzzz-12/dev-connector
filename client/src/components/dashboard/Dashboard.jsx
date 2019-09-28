@@ -5,6 +5,7 @@ import {getCurrentProfile} from "../../actions/profile";
 import Spinner from "../layout/Spinner";
 import DashboardActions from "./DashboardActions";
 import Experience from "./Experience";
+import Education from "./Education";
 
 const Dashboard = (props) => {
   useEffect(() => {
@@ -24,6 +25,7 @@ const Dashboard = (props) => {
           <React.Fragment>
             <DashboardActions />
             <Experience experience={props.profile.experience} />
+            <Education education={props.profile.education} />
           </React.Fragment> :
           <React.Fragment>
             <p>You have not created a profile yet</p>
