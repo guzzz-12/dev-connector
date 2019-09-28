@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {getCurrentProfile} from "../../actions/profile";
+import {getCurrentProfile, deleteUserAccount} from "../../actions/profile";
 import Spinner from "../layout/Spinner";
 import DashboardActions from "./DashboardActions";
 import Experience from "./Experience";
@@ -30,6 +30,12 @@ const Dashboard = (props) => {
             {props.profile.education.length > 0 && (
               <Education education={props.profile.education} />
             )}
+            <div className="my-2">
+              <button onClick={() => props.deleteUserAccount()} className="btn btn-danger">
+                <i className="fas fa-user-minus"></i>
+                {" "}Delete My Account
+              </button>
+            </div>
           </React.Fragment> :
           <React.Fragment>
             <p>You have not created a profile yet</p>
@@ -55,7 +61,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getCurrentProfile: () => {
       dispatch(getCurrentProfile())
-    }
+    },
+    deleteUserAccount: () => {
+      dispatch(deleteUserAccount())
+    }    
   }
 }
 
