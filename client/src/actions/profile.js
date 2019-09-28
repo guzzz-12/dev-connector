@@ -157,3 +157,59 @@ export const addEducation = (formData, history) => {
     }
   }
 }
+
+//Borrar experience del perfil del usuario
+export const deleteExperience = (id) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios({
+        method: "DELETE",
+        url: `/api/profile/experience/${id}`
+      });
+
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: res.data
+      });
+
+      dispatch(setAlert("Experience removed!", "success"));
+
+    } catch (error) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: {
+          msg: error.response.statusText,
+          status: error.response.status
+        }
+      })
+    }
+  }
+}
+
+//Borrar education del perfil del usuario
+export const deleteEducation = (id) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios({
+        method: "DELETE",
+        url: `/api/profile/education/${id}`
+      });
+
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: res.data
+      });
+
+      dispatch(setAlert("Education removed!", "success"));
+
+    } catch (error) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: {
+          msg: error.response.statusText,
+          status: error.response.status
+        }
+      })
+    }
+  }
+}
