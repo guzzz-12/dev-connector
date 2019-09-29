@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import Moment from "react-moment";
+import {format} from "date-fns";
 import {deleteEducation} from "../../actions/profile";
 
 const Education = (props) => {
@@ -10,9 +10,7 @@ const Education = (props) => {
         <td>{el.school}</td>
         <td className="hide-sm">{el.degree}</td>
         <td>
-          <Moment format="YYYY-MM-DD">{el.from}</Moment> - {
-            !el.to ? (" Now") : (<Moment format="YYYY-MM-DD">{el.to}</Moment>)
-          }
+          {format(new Date(el.from), "yyyy-MM-dd")} - {!el.to ? (" NOW") : format(new Date(el.to), "yyyy-MM-dd")}
         </td>
         <td>
           <button
