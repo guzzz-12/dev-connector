@@ -15,6 +15,7 @@ import EditProfile from "./components/profile-form/EditProfile";
 import AddExperience from "./components/profile-form/AddExperience";
 import AddEducation from "./components/profile-form/AddEducation";
 import Profiles from "./components/profiles/Profiles";
+import Profile from "./components/profile/Profile";
 
 //Configuración de Redux
 import {Provider} from "react-redux";
@@ -50,6 +51,7 @@ const App = () => {
               <PrivateRoute exact path="/add-experience" component={AddExperience} />
               <PrivateRoute exact path="/add-education" component={AddEducation} />
               <PrivateRoute exact path="/profiles" component={Profiles} />
+              <PrivateRoute exact path="/profiles/user/:userId" component={Profile} />
             </Switch>
           </section>
         </React.Fragment>
