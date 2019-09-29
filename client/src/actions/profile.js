@@ -18,13 +18,15 @@ export const getCurrentProfile = () => {
       })
 
     } catch (error) {
-      dispatch({
-        type: PROFILE_ERROR,
-        payload: {
-          msg: error.response.statusText,
-          status: error.response.status
-        }
-      })
+      if(error.response) {
+        dispatch({
+          type: PROFILE_ERROR,
+          payload: {
+            msg: error.response.statusText,
+            status: error.response.status
+          }
+        })
+      }
     }
   }
 }
@@ -46,13 +48,15 @@ export const getProfiles = () => {
       })
 
     } catch (error) {
-      dispatch({
-        type: PROFILE_ERROR,
-        payload: {
-          msg: error.response.statusText,
-          status: error.response.status
-        }
-      })
+      if(error.response) {
+        dispatch({
+          type: PROFILE_ERROR,
+          payload: {
+            msg: error.response.statusText,
+            status: error.response.status
+          }
+        })
+      }
     }
   }
 }
@@ -74,13 +78,15 @@ export const getProfile = (userId) => {
       })
 
     } catch (error) {
-      dispatch({
-        type: PROFILE_ERROR,
-        payload: {
-          msg: error.response.statusText,
-          status: error.response.status
-        }
-      })
+      if(error.response) {
+        dispatch({
+          type: PROFILE_ERROR,
+          payload: {
+            msg: error.response.statusText,
+            status: error.response.status
+          }
+        })
+      }
     }
   }
 }
@@ -100,13 +106,15 @@ export const getGithubRepos = (username) => {
       })
 
     } catch (error) {
-      dispatch({
-        type: PROFILE_ERROR,
-        payload: {
-          msg: error.response.statusText,
-          status: error.response.status
-        }
-      })
+      if(error.response) {
+        dispatch({
+          type: PROFILE_ERROR,
+          payload: {
+            msg: error.response.statusText,
+            status: error.response.status
+          }
+        })
+      }
     }
   }
 }
@@ -257,13 +265,15 @@ export const deleteExperience = (id) => {
       dispatch(setAlert("Experience removed!", "success"));
 
     } catch (error) {
-      dispatch({
-        type: PROFILE_ERROR,
-        payload: {
-          msg: error.response.statusText,
-          status: error.response.status
-        }
-      })
+      if(error.response) {
+        dispatch({
+          type: PROFILE_ERROR,
+          payload: {
+            msg: error.response.statusText,
+            status: error.response.status
+          }
+        })
+      }
     }
   }
 }
@@ -285,13 +295,15 @@ export const deleteEducation = (id) => {
       dispatch(setAlert("Education removed!", "success"));
 
     } catch (error) {
-      dispatch({
-        type: PROFILE_ERROR,
-        payload: {
-          msg: error.response.statusText,
-          status: error.response.status
-        }
-      })
+      if(error.response) {
+        dispatch({
+          type: PROFILE_ERROR,
+          payload: {
+            msg: error.response.statusText,
+            status: error.response.status
+          }
+        })
+      }
     }
   }
 }
@@ -317,13 +329,15 @@ export const deleteUserAccount = () => {
         dispatch(setAlert("Your account has been permanently deleted", "success"))
 
       } catch (error) {
-        dispatch({
-          type: PROFILE_ERROR,
-          payload: {
-            msg: error.response.statusText,
-            status: error.response.status
-          }
-        })
+        if(error.response) {
+          dispatch({
+            type: PROFILE_ERROR,
+            payload: {
+              msg: error.response.statusText,
+              status: error.response.status
+            }
+          })
+        }
       }
     }
   }
