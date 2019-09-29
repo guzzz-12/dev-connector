@@ -69,7 +69,7 @@ export const getProfile = (userId) => {
     try {
       const res = await axios({
         method: "GET",
-        url: `/api/user/${userId}`
+        url: `/api/profile/user/${userId}`
       });
 
       dispatch({
