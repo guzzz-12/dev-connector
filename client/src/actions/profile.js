@@ -1,6 +1,6 @@
 import axios from "axios";
 import {setAlert} from "./alert";
-import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE, CLEAR_PROFILE, DELETE_ACCOUNT } from "./types";
+import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE, CLEAR_PROFILE, DELETE_ACCOUNT, GET_PROFILES, GET_GITHUB_REPOS } from "./types";
 
 
 //Tomar el perfil del usuario actual
@@ -14,6 +14,88 @@ export const getCurrentProfile = () => {
 
       dispatch({
         type: GET_PROFILE,
+        payload: res.data
+      })
+
+    } catch (error) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: {
+          msg: error.response.statusText,
+          status: error.response.status
+        }
+      })
+    }
+  }
+}
+
+//Tomar todos los perfiles de usuario
+export const getProfiles = () => {
+  return async (dispatch) => {
+    dispatch({type: CLEAR_PROFILE});
+
+    try {
+      const res = await axios({
+        method: "GET",
+        url: "/api/profile"
+      });
+
+      dispatch({
+        type: GET_PROFILES,
+        payload: res.data
+      })
+
+    } catch (error) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: {
+          msg: error.response.statusText,
+          status: error.response.status
+        }
+      })
+    }
+  }
+}
+
+//Tomar el perfil de un usuario mediante su ID
+export const getProfile = (userId) => {
+  return async (dispatch) => {
+    dispatch({type: CLEAR_PROFILE});
+
+    try {
+      const res = await axios({
+        method: "GET",
+        url: `/api/user/${userId}`
+      });
+
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+
+    } catch (error) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: {
+          msg: error.response.statusText,
+          status: error.response.status
+        }
+      })
+    }
+  }
+}
+
+//Tomar los repositorios de github del usuario
+export const getGithubRepos = (username) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios({
+        method: "GET",
+        url: `/api/profile/github/${username}`
+      });
+
+      dispatch({
+        type: GET_GITHUB_REPOS,
         payload: res.data
       })
 
