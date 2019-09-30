@@ -5,6 +5,8 @@ import Spinner from "../layout/Spinner";
 import {getProfile} from "../../actions/profile";
 import ProfileTop from "./ProfileTop";
 import ProfileAbout from "./ProfileAbout";
+import ProfileExperience from "./ProfileExperience";
+import ProfileEducation from "./ProfileEducation";
 
 const Profile = (props) => {
   useEffect(() => {
@@ -16,18 +18,41 @@ const Profile = (props) => {
       {!props.userProfile || props.loading ?
         <Spinner /> :
         <React.Fragment>
-          <div className="profile-grid-my-1">
+          <div className="profile-grid my-1">
             <ProfileTop profileData={props.userProfile} />
             <ProfileAbout profileData={props.userProfile} />
+            
+            <div className="profile-exp bg-white p-2">
+              <h2 className="text-primary">Experience</h2>
+              {props.userProfile.experience.length > 0 ?
+                props.userProfile.experience.map(exp => {
+                  return <ProfileExperience key={exp._id} experienceData={exp} />
+                }) :             
+                <h4>No experience credentials</h4>
+              }
+            </div>
+
+            <div className="profile-edu bg-white p-2">
+              <h2 className="text-primary">Education</h2>
+              {props.userProfile.education.length > 0 ?
+                props.userProfile.education.map(edu => {
+                  return <ProfileEducation key={edu._id} educationData={edu} />
+                }) :
+                <h4>No education credentials</h4>
+              }
+            </div>
           </div>
-          <Link to="/profiles" className="btn btn-light">
-            Back to profiles page
-          </Link>
-          {props.userProfile.user._id === props.auth._id &&
-            <Link to="/edit-profile" className="btn btn-dark">
-              Edit your profile
+
+          <div className="my-1">
+            <Link to="/profiles" className="btn btn-light">
+              Back to profiles page
             </Link>
-          }
+            {props.userProfile.user._id === props.auth._id &&
+              <Link to="/edit-profile" className="btn btn-dark">
+                Edit your profile
+              </Link>
+            }
+          </div>
         </React.Fragment>
       }
     </React.Fragment>
