@@ -7,6 +7,7 @@ import ProfileTop from "./ProfileTop";
 import ProfileAbout from "./ProfileAbout";
 import ProfileExperience from "./ProfileExperience";
 import ProfileEducation from "./ProfileEducation";
+import ProfileRepos from "./ProfileRepos";
 
 const Profile = (props) => {
   useEffect(() => {
@@ -41,6 +42,16 @@ const Profile = (props) => {
                 <h4>No education credentials</h4>
               }
             </div>
+          </div>
+          
+          <div className="profile-github">
+            <h2 className="text-primary my-1">
+              <i className="fab fa-github"></i> Github Repos
+            </h2>
+            {props.userProfile.githubUsername ?
+              <ProfileRepos githubUser={props.userProfile.githubUsername} /> :
+              <h4>No github repositories</h4>
+            }
           </div>
 
           <div className="my-1">
