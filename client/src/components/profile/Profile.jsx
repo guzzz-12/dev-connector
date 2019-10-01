@@ -16,8 +16,8 @@ const Profile = (props) => {
 
   return (
     <React.Fragment>
-      {!props.userProfile || props.loading ?
-        <Spinner /> :
+      {!props.userProfile && props.loading && <Spinner />}
+      {props.userProfile && 
         <React.Fragment>
           <div className="profile-grid my-1">
             <ProfileTop profileData={props.userProfile} />
@@ -66,6 +66,14 @@ const Profile = (props) => {
           </div>
         </React.Fragment>
       }
+      {props.error.msg &&
+        <div className="my-1">
+          <h2 className="text-primary">{props.error.msg}</h2>
+          <Link to="/posts" className="btn btn-light">
+              Back to posts
+            </Link>
+        </div>
+      }
     </React.Fragment>
   );
 }
@@ -73,6 +81,7 @@ const Profile = (props) => {
 const mapStateToProps = (state) => {
   return {
     userProfile: state.profileReducer.profile,
+    error: state.profileReducer.error,
     auth: state.authReducer.user,
     loading: state.profileReducer.loading
   }
