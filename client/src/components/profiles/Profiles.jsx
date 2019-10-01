@@ -11,23 +11,23 @@ const Profiles = (props) => {
 
   return (
     <React.Fragment>
-      {props.loading ?
-        <Spinner /> :
+      <h1 className="large text-primary">Developers</h1>
+      <p className="lead">
+        <i className="fab fa-connectdevelop"></i>
+        {" "} Connect with developers
+      </p>
+      {props.loading && <Spinner />}
+      {!props.loading && props.profiles.length > 0 &&
         <React.Fragment>
-          <h1 className="large text-primary">Developers</h1>
-          <p className="lead">
-            <i className="fab fa-connectdevelop"></i>
-            {" "} Connect with developers
-          </p>
           <div className="profiles">
-            {props.profiles.length > 0 ?
-              (props.profiles.map(profile => {
-                return <ProfileItem key={profile._id} profileData={profile} />
-              })) :
-              <h4>No profiles found</h4>
-            }
+            {props.profiles.map(profile => {
+              return <ProfileItem key={profile._id} profileData={profile} />
+            })}
           </div>
-        </React.Fragment>
+        </React.Fragment>      
+      }
+      {!props.loading && props.profiles.length === 0 &&
+        <h4>No profiles found</h4>
       }
     </React.Fragment>
   );
