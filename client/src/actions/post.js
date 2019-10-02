@@ -1,6 +1,6 @@
 import axios from "axios";
 import {setAlert} from "./alert";
-import { GET_POSTS, POST_ERROR } from "./types";
+import { GET_POSTS, POST_ERROR, UPDATE_LIKES } from "./types";
 
 //Tomar los posts
 export const getPosts = () => {
@@ -22,6 +22,65 @@ export const getPosts = () => {
             status: error.response.status
           }
         })
+      }
+    }
+  }
+}
+
+//Agregar likes a los posts
+export const addLikes = (postId) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios({
+        method: "PATCH",
+        url: `/api/posts/like/${postId}`
+      });
+
+      dispatch({
+        type: UPDATE_LIKES,
+        payload: {id: postId, likes: res.data}
+      });
+
+    } catch (error) {
+      if(error.response) {
+        dispatch({
+          type: POST_ERROR,
+          payload: {
+            msg: error.response.statusText,
+            status: error.response.status
+          }
+        })
+      }
+    }
+  }
+}
+
+//Remover likes a los posts
+export const removeLikes = (postId) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios({
+        method: "PATCH",
+        url: `/api/posts/unlike/${postId}`
+      });
+
+      dispatch({
+        type: UPDATE_LIKES,
+        payload: {id: postId, likes: res.data }
+      });
+
+    } catch (error) {
+      if(error.response) {
+        dispatch({
+          type: POST_ERROR,
+          payload: {
+            msg: error.response.statusText,
+            status: error.response.status
+          }
+        });
+        if(error.response.data.msg) {
+          dispatch(setAlert(error.response.data.msg, "danger"))
+        }
       }
     }
   }
