@@ -62,37 +62,41 @@ const PostItem = (props) => {
               Posted on {format(new Date(date), "yyyy-MM-dd")}
             </p>        
           }
-          <button
-            type="button"
-            id="addLikeBtn"
-            className="btn btn-light"
-            onClick={() => props.addLike(_id)}
-            disabled={isLiked}
-          >
-            <i className="fas fa-thumbs-up"></i>
-            {" "}<span>{likes.length}</span>
-          </button>
-          <button 
-            type="button"
-            id="addLikeBtn"
-            className="btn btn-light"
-            onClick={() => props.removeLike(_id)}
-            disabled={!isLiked}
-          >
-            <i className="fas fa-thumbs-down"></i>
-          </button>
-          <Link to={`/posts/${_id}`} className="btn btn-primary">
-            Discussion{" "}<span className='comment-count'>{comments.length}</span>
-          </Link>
-          {props.auth.isAuthenticated && props.auth.user._id === user && 
-            <button      
-              type="button"
-              className="btn btn-danger"
-              title="Delete post"
-              onClick={() => toggleModalHandler(true)}
-            >
-              <i className="fas fa-times"></i>
-            </button>        
+          {props.showActions &&
+            <React.Fragment>
+              <button
+                type="button"
+                id="addLikeBtn"
+                className="btn btn-light"
+                onClick={() => props.addLike(_id)}
+                disabled={isLiked}
+              >
+                <i className="fas fa-thumbs-up"></i>
+                {" "}<span>{likes.length}</span>
+              </button>
+              <button 
+                type="button"
+                id="addLikeBtn"
+                className="btn btn-light"
+                onClick={() => props.removeLike(_id)}
+                disabled={!isLiked}
+              >
+                <i className="fas fa-thumbs-down"></i>
+              </button>
+              <Link to={`/posts/${_id}`} className="btn btn-primary">
+                Discussion{" "}<span className='comment-count'>{comments.length}</span>
+              </Link>
+              {props.auth.isAuthenticated && props.auth.user._id === user && 
+                <button      
+                  type="button"
+                  className="btn btn-danger"
+                  title="Delete post"
+                  onClick={() => toggleModalHandler(true)}
+                >
+                  <i className="fas fa-times"></i>
+                </button>        
+              }
+            </React.Fragment>
           }
         </div>
       </div>

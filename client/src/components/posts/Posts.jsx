@@ -24,7 +24,7 @@ const Posts = (props) => {
           <PostForm />
           <div className="posts">
             {props.posts.map(post => {
-              return <PostItem key={post._id} post={post} />
+              return <PostItem key={post._id} post={post} showActions={true} />
             })}
           </div>
         </React.Fragment>      
