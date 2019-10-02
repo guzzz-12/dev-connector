@@ -1,6 +1,6 @@
 import axios from "axios";
 import {setAlert} from "./alert";
-import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST, ADD_POST } from "./types";
+import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST, ADD_POST, GET_POST } from "./types";
 
 //Tomar los posts
 export const getPosts = () => {
@@ -10,6 +10,31 @@ export const getPosts = () => {
 
       dispatch({
         type: GET_POSTS,
+        payload: res.data
+      });
+
+    } catch (error) {
+      if(error.response) {
+        dispatch({
+          type: POST_ERROR,
+          payload: {
+            msg: error.response.statusText,
+            status: error.response.status
+          }
+        })
+      }
+    }
+  }
+}
+
+//Tomar un post por su ID
+export const getSinglePost = (postId) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios(`/api/posts/${postId}`);
+
+      dispatch({
+        type: GET_POST,
         payload: res.data
       });
 
