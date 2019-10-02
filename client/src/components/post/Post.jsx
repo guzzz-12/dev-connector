@@ -4,6 +4,7 @@ import Spinner from "../layout/Spinner";
 import {getSinglePost} from "../../actions/post";
 import PostItem from "../posts/PostItem";
 import {Link} from "react-router-dom";
+import CommentForm from "./CommentForm";
 
 const Post = (props) => {
   useEffect(() => {
@@ -19,6 +20,7 @@ const Post = (props) => {
       {!props.loading && props.post &&
         <React.Fragment>
           <PostItem post={props.post} showActions={false}/>
+          <CommentForm postId={props.post._id} />
           <Link to="/posts" className="btn">
             Back to Posts
           </Link>
