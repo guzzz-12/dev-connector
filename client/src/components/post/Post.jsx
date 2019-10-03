@@ -5,6 +5,7 @@ import {getSinglePost} from "../../actions/post";
 import PostItem from "../posts/PostItem";
 import {Link} from "react-router-dom";
 import CommentForm from "./CommentForm";
+import CommentItem from "./CommentItem";
 
 const Post = (props) => {
   useEffect(() => {
@@ -21,6 +22,17 @@ const Post = (props) => {
         <React.Fragment>
           <PostItem post={props.post} showActions={false}/>
           <CommentForm postId={props.post._id} />
+          <div className="comments">
+            {props.post.comments.map((comment) => {
+              return (
+                <CommentItem
+                  key={comment._id}
+                  comment={comment}
+                  postId={props.post._id}
+                />
+              )
+            })}
+          </div>
           <Link to="/posts" className="btn">
             Back to Posts
           </Link>
