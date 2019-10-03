@@ -24,6 +24,7 @@ const CommentItem = (props) => {
         show={toggleModal}
         toggleModal={toggleModalHandler}
         action={deleteCommentHandler}
+        actionName="deleteComment"
         id={_id}
       />
       <div className="post bg-white p-1 my-1">

@@ -42,6 +42,7 @@ const PostItem = (props) => {
         show={toggleModal}
         toggleModal={toggleModalHandler}
         action={deletePostHandler}
+        actionName="deletePost"
         id={_id}
       />
       <div className="post bg-white p-1 my-1">

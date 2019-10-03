@@ -11,8 +11,6 @@ const CommentForm = (props) => {
     setText("")
   }
 
-  console.log(text)
-
   return (
     <div className="post-form">
       <div className="bg-primary p">

@@ -19,18 +19,22 @@ const Dashboard = (props) => {
     setToggleModal(val)
   }
 
-  const deleteAccountHandler = () => {
-    props.deleteUserAccount();
+  const deleteAccountHandler = (password, userPassword) => {
+    props.deleteUserAccount(password, userPassword);
   }
 
   return (
     <React.Fragment>
-      <Modal
-        show={toggleModal}
-        toggleModal={toggleModalHandler}
-        action={deleteAccountHandler}
-        id={null}
-      />
+      {toggleModal && 
+        <Modal
+          show={toggleModal}
+          userPassword={props.user && props.user.password}
+          toggleModal={toggleModalHandler}
+          action={deleteAccountHandler}
+          actionName="deleteAccount"
+          id={null}
+        />      
+      }
       {props.isLoading && props.profile === null ?
         <Spinner /> :
         <React.Fragment>
@@ -84,8 +88,8 @@ const mapDispatchToProps = (dispatch) => {
     getCurrentProfile: () => {
       dispatch(getCurrentProfile())
     },
-    deleteUserAccount: () => {
-      dispatch(deleteUserAccount())
+    deleteUserAccount: (password, userPassword) => {
+      dispatch(deleteUserAccount(password, userPassword))
     }    
   }
 }
