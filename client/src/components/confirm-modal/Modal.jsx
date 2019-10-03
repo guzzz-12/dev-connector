@@ -11,7 +11,7 @@ const Modal = (props) => {
             <div className="modal-buttons">
               <button
                 onClick={() => {
-                    props.action(props.id);
+                    props.action(props.id ? props.id : null);
                     props.toggleModal(false)
                   }
                 }
