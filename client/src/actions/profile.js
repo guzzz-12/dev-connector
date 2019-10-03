@@ -1,7 +1,7 @@
 import axios from "axios";
 import {setAlert} from "./alert";
 import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE, CLEAR_PROFILE, DELETE_ACCOUNT, GET_PROFILES, GET_GITHUB_REPOS } from "./types";
-
+import bcrypt from "bcryptjs";
 
 //Tomar el perfil del usuario actual
 export const getCurrentProfile = () => {
@@ -309,8 +309,15 @@ export const deleteEducation = (id) => {
 }
 
 //Borrar perfil y cuenta del usuario
-export const deleteUserAccount = () => {
+export const deleteUserAccount = (password, userPassword) => {
   return async (dispatch) => {
+    const checkPassword = await bcrypt.compare(password, userPassword);
+
+    if(!checkPassword) {
+      dispatch(setAlert("Incorrect password", "danger"));
+      return
+    }
+
     try {
       await axios({
         method: "DELETE",

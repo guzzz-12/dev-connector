@@ -12,7 +12,8 @@ const bcrypt = require("bcryptjs");
 //Tomar la data del usuario actualmente logueado
 router.get("/", auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
+    // const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user.id);
 
     res.json({
       user: user
