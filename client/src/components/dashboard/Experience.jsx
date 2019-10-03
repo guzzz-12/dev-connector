@@ -17,7 +17,7 @@ const Experience = (props) => {
 
   const experiences = props.experience.map(el => {
     return (
-      <React.Fragment>
+      <React.Fragment key={el._id}>
         {toggleModal && 
           <Modal
             show={toggleModal}

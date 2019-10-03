@@ -17,7 +17,7 @@ const Education = (props) => {
 
   const education = props.education.map(el => {
     return (
-      <React.Fragment>
+      <React.Fragment key={el._id}>
         {toggleModal &&
           <Modal
             show={toggleModal}
