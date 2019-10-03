@@ -8,10 +8,15 @@ import ProfileAbout from "./ProfileAbout";
 import ProfileExperience from "./ProfileExperience";
 import ProfileEducation from "./ProfileEducation";
 import ProfileRepos from "./ProfileRepos";
+import { CLEAR_PROFILE } from "../../actions/types";
 
 const Profile = (props) => {
   useEffect(() => {
     props.getProfile(props.match.params.userId);
+
+    return () => {
+      props.clearProfile()
+    }
   }, [props.getProfile]);
 
   return (
@@ -91,6 +96,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getProfile: (id) => {
       dispatch(getProfile(id))
+    },
+    clearProfile: () => {
+      dispatch({type: CLEAR_PROFILE})
     }
   }
 }
