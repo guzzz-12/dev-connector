@@ -91,7 +91,7 @@ router.delete("/:postId", auth, async (req, res) => {
     
     //Borrar el post
     await Post.deleteOne({user: req.user.id});
-    const updatedPosts = await Post.find();
+    const updatedPosts = await Post.find().sort({date: -1});
 
     res.json(updatedPosts);
 
@@ -173,10 +173,9 @@ router.patch("/unlike/:postId", auth, async (req, res) => {
 });
 
 //Agregar comentarios a un post
-router.post("/comment/:postId",
-  [
+router.post("/comment/:postId", [
     auth,
-    check("text", "Text is required").not().isEmpty()
+    [check("text", "Text is required").not().isEmpty()]
   ],
   async (req, res) => {
     const errors = validationResult(req);
