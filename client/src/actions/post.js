@@ -159,8 +159,6 @@ export const createPosts = (postContent) => {
         payload: res.data
       });
 
-      dispatch(setAlert("Post created successfully", "success"))
-
     } catch (error) {
       if(error.response) {
         dispatch({
@@ -190,6 +188,14 @@ export const addComment = (postId, text) => {
           "Content-Type": "application/json"
         }
       });
+
+      if(res.status === 404) {
+        dispatch({
+          type: POST_ERROR,
+          payload: res.data.msg
+        })
+        return;
+      }
 
       dispatch({
         type: ADD_COMMENT,

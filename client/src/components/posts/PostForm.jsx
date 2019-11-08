@@ -14,14 +14,14 @@ const PostForm = (props) => {
   return (
     <div className="post-form">
       <div className="bg-primary p">
-        <h3>Leave a Comment</h3>
+        <h3>Create post</h3>
       </div>
       <form className="form my-1" onSubmit={onSubmitHandler}>
         <textarea
           name="text"
           cols="30"
           rows="5"
-          placeholder="Comment on this post"
+          placeholder="Add post content..."
           value={text}
           onChange={(e) => setText(e.target.value)}
           required

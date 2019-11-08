@@ -14,8 +14,8 @@ const PostItem = (props) => {
     setToggleModal(val)
   }
 
-  const deletePostHandler = (id) => {
-    props.deletePost(id);
+  const deletePostHandler = () => {
+    props.deletePost(_id);
   }
 
   const [isLiked, setIsLiked] = useState(false);

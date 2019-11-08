@@ -13,18 +13,21 @@ export default (state = initialState, action) => {
       return {
         ...state,
         posts: action.payload,
+        error: {},
         loading: false
       }
     case GET_POST:
       return {
         ...state,
         post: action.payload,
+        error: {},
         loading: false
       }
     case POST_ERROR:
       return {
         ...state,
         error: action.payload,
+        post: null,
         loading: false
       }
     case UPDATE_LIKES:
@@ -37,13 +40,14 @@ export default (state = initialState, action) => {
     case DELETE_POST:
       return {
         ...state,
-        posts: action.payload,
+        posts: [...action.payload],
+        error: {},
         loading: false
       }
     case ADD_POST:
       return {
         ...state,
-        posts: [action.payload, ...state.posts],
+        posts: [...state.posts, action.payload],
         loading: false
       }
     case ADD_COMMENT:

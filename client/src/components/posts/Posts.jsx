@@ -21,17 +21,21 @@ const Posts = (props) => {
             <i className="fas fa-user"></i>
             {" "} Welcome to the community
           </p>
-          <PostForm />
           <div className="posts">
             {props.posts.map(post => {
               return <PostItem key={post._id} post={post} showActions={true} />
             })}
           </div>
+          <PostForm />
+          <Link to="/profiles" className="btn btn-light">
+              Back to profiles page
+          </Link>
         </React.Fragment>      
       }
       {!props.loading && props.posts.length === 0 &&
         <div className="my-1">
           <h2 className="text-primary">No posts created yet.</h2>
+          <PostForm />
           <Link to="/profiles" className="btn btn-light">
               Back to profiles page
           </Link>
