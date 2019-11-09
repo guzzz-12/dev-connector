@@ -5,9 +5,37 @@ import {getPosts} from "../../actions/post";
 import Spinner from "../layout/Spinner";
 import PostItem from "./PostItem";
 import PostForm from "./PostForm";
+import Pusher from "pusher-js";
 
 const Posts = (props) => {
   useEffect(() => {
+    //Inicializar pusher
+    const pusher = new Pusher('1ff5879796441f634f9b', {
+      cluster: 'us2',
+      forceTLS: true
+    });
+    
+    const channel = pusher.subscribe('posts');
+
+    //Suscripción a los posts creados
+    channel.bind('new-post', (data) => {
+      props.getPosts()
+    });
+
+    //Suscripción a los posts borrados
+    channel.bind('post-deleted', (data) => {
+      props.getPosts()
+    });
+
+    //Suscripción a los likes y unlikes
+    channel.bind('post-liked', (data) => {
+      props.getPosts()
+    });
+
+    channel.bind('post-unliked', (data) => {
+      props.getPosts()
+    });
+
     props.getPosts()
     // eslint-disable-next-line
   }, [props.getPosts]);

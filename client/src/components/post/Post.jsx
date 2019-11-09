@@ -6,9 +6,32 @@ import PostItem from "../posts/PostItem";
 import {Link} from "react-router-dom";
 import CommentForm from "./CommentForm";
 import CommentItem from "./CommentItem";
+import Pusher from "pusher-js";
 
 const Post = (props) => {
   useEffect(() => {
+    //Inicialiazar pusher
+    const pusher = new Pusher('1ff5879796441f634f9b', {
+      cluster: 'us2',
+      forceTLS: true
+    });
+    
+    const channel = pusher.subscribe('posts');
+
+    //Subscripción a los comentarios de los posts
+    channel.bind('post-comment-added', (data) => {
+      if(data.postId === props.match.params.postId) {
+        props.getPost(data.postId)
+      }
+    });
+
+    channel.bind('post-comment-removed', (data) => {
+      if(data.postId === props.match.params.postId) {
+        props.getPost(data.postId)
+      }
+    });
+
+    //Cargar los posts
     props.getPost(props.match.params.postId)
     // eslint-disable-next-line
   }, [props.getPost]);
