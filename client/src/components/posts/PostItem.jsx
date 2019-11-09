@@ -34,6 +34,7 @@ const PostItem = (props) => {
     } else {
       setIsLiked(false)
     }
+    // eslint-disable-next-line
   }, [props.auth.user, likes]);
 
   return (

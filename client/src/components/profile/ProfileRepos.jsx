@@ -6,6 +6,7 @@ import Spinner from "../layout/Spinner";
 const ProfileRepos = (props) => {
   useEffect(() => {
     props.getRepos(props.githubUser)
+    // eslint-disable-next-line
   }, [props.getRepos]);
 
   const renderRepos = (repos) => {

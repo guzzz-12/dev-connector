@@ -10,6 +10,7 @@ import CommentItem from "./CommentItem";
 const Post = (props) => {
   useEffect(() => {
     props.getPost(props.match.params.postId)
+    // eslint-disable-next-line
   }, [props.getPost]);
 
   return (

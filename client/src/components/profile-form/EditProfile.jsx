@@ -38,6 +38,7 @@ const EditProfile = (props) => {
       youtube: props.loading || !props.profile.social ? "" : props.profile.social.youtube,
       instagram: props.loading || !props.profile.social ? "" : props.profile.social.instagram,
     })
+    // eslint-disable-next-line
   }, []);
 
   const onChangeHandler = (e) => {

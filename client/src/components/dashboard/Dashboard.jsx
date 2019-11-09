@@ -11,6 +11,7 @@ import Modal from "../confirm-modal/Modal";
 const Dashboard = (props) => {
   useEffect(() => {
     props.getCurrentProfile()
+    // eslint-disable-next-line
   }, []);
 
   const [toggleModal, setToggleModal] = useState(false);

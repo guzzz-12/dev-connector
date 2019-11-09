@@ -7,6 +7,7 @@ import {getProfiles} from "../../actions/profile";
 const Profiles = (props) => {
   useEffect(() => {
     props.getProfiles();
+    // eslint-disable-next-line
   }, []);
 
   return (

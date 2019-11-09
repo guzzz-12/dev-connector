@@ -17,6 +17,7 @@ const Profile = (props) => {
     return () => {
       props.clearProfile()
     }
+    // eslint-disable-next-line
   }, [props.getProfile]);
 
   return (
