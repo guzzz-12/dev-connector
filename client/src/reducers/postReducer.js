@@ -1,9 +1,9 @@
-import {GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST, ADD_POST, GET_POST, ADD_COMMENT, REMOVE_COMMENT} from "../actions/types";
+import {GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST, ADD_POST, GET_POST, ADD_COMMENT, REMOVE_COMMENT, SET_LOADER} from "../actions/types";
 
 const initialState = {
   posts: [],
   post: null,
-  loading: true,
+  loading: false,
   error: {}
 }
 
@@ -61,6 +61,11 @@ export default (state = initialState, action) => {
         ...state,
         post: {...state.post, comments: action.payload},
         loading: false
+      }
+    case SET_LOADER:
+      return {
+        ...state,
+        loading: true
       }
     default:
       return state

@@ -1,10 +1,14 @@
 import axios from "axios";
 import {setAlert} from "./alert";
-import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST, ADD_POST, GET_POST, ADD_COMMENT, REMOVE_COMMENT } from "./types";
+import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST, ADD_POST, GET_POST, ADD_COMMENT, REMOVE_COMMENT, SET_LOADER } from "./types";
 
 //Tomar los posts
 export const getPosts = () => {
   return async (dispatch) => {
+    dispatch({
+      type: SET_LOADER
+    });
+
     try {
       const res = await axios("/api/posts");
 
@@ -28,8 +32,12 @@ export const getPosts = () => {
 }
 
 //Tomar un post por su ID
-export const getSinglePost = (postId) => {
+export const getSinglePost = (postId) => {  
   return async (dispatch) => {
+    dispatch({
+      type: SET_LOADER
+    });
+
     try {
       const res = await axios(`/api/posts/${postId}`);
 
@@ -112,8 +120,12 @@ export const removeLikes = (postId) => {
 }
 
 //Borrar post
-export const deletePost = (postId) => {
+export const deletePost = (postId) => {  
   return async (dispatch) => {
+    dispatch({
+      type: SET_LOADER
+    });
+
     try {
       const res = await axios({
         method: "DELETE",
@@ -140,8 +152,12 @@ export const deletePost = (postId) => {
 }
 
 //Crear post
-export const createPosts = (postContent) => {
+export const createPosts = (postContent) => {  
   return async (dispatch) => {
+    dispatch({
+      type: SET_LOADER
+    });
+
     try {
       const res = await axios({
         method: "POST",
@@ -175,8 +191,12 @@ export const createPosts = (postContent) => {
 }
 
 //Agregar comentarios a los posts
-export const addComment = (postId, text) => {
+export const addComment = (postId, text) => {  
   return async (dispatch) => {
+    dispatch({
+      type: SET_LOADER
+    });
+
     try {
       const res = await axios({
         method: "POST",
@@ -202,8 +222,6 @@ export const addComment = (postId, text) => {
         payload: res.data
       });
 
-      dispatch(setAlert("Comment added successfully", "success"))
-
     } catch (error) {
       if(error.response) {
         dispatch({
@@ -222,6 +240,9 @@ export const addComment = (postId, text) => {
 //Borrar comentarios a los posts
 export const deleteComment = (postId, commentId) => {
   return async (dispatch) => {
+    dispatch({
+      type: SET_LOADER
+    });
     try {
       const res = await axios({
         method: "PATCH",
@@ -232,8 +253,6 @@ export const deleteComment = (postId, commentId) => {
         type: REMOVE_COMMENT,
         payload: res.data
       });
-
-      dispatch(setAlert("Comment removed", "success"))
 
     } catch (error) {
       if(error.response) {
