@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import Spinner from "../layout/Spinner";
 import {getSinglePost} from "../../actions/post";
 import PostItem from "../posts/PostItem";
 import {Link} from "react-router-dom";
 import CommentForm from "./CommentForm";
 import CommentItem from "./CommentItem";
+import Spinner from "../spinner/Spinner";
 import Pusher from "pusher-js";
 
 const Post = (props) => {
@@ -45,9 +45,11 @@ const Post = (props) => {
 
   return (
     <React.Fragment>
-      {props.loading && !props.post &&
-        <Spinner />
-      }
+      {props.isLoading && !props.post && (
+        <div className="spinner-container" style={{width: "100vw", height: "100vh"}}>
+          <Spinner />
+        </div>
+      )}
 
       {props.postError && (
           <React.Fragment>
@@ -91,7 +93,7 @@ const Post = (props) => {
 const mapStateToProps = (state) => {
   return {
     post: state.postReducer.post,
-    loading: state.postReducer.loading,
+    isLoading: state.postReducer.loading,
     postError: state.postReducer.error.msg
   }
 }

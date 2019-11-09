@@ -3,6 +3,7 @@ import {Link, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {setAlert} from "../../actions/alert";
 import {register} from "../../actions/auth";
+import Spinner from "../spinner/Spinner";
 import PropTypes from "prop-types";
 
 const Register = (props) => {
@@ -45,6 +46,11 @@ const Register = (props) => {
 
   return (
     <React.Fragment>
+      {props.isLoading && (
+        <div className="spinner-container">
+          <Spinner />
+        </div>
+      )}
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
       <form className="form" onSubmit={submitHandler}>
@@ -111,6 +117,7 @@ Register.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    isLoading: state.authReducer.loading,
     isAuth: state.authReducer.isAuthenticated
   }
 }

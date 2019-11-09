@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Link, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {login} from "../../actions/auth";
+import Spinner from "../spinner/Spinner";
 import PropTypes from "prop-types";
 
 const Login = (props) => {
@@ -34,6 +35,11 @@ const Login = (props) => {
 
   return (
     <React.Fragment>
+      {props.isLoading && (
+        <div className="spinner-container">
+          <Spinner />
+        </div>
+      )}
       <h1 className="large text-primary">Sign In</h1>
       <p className="lead"><i className="fas fa-user"></i> Sign Into Your Account</p>
       <form className="form" onSubmit={submitHandler}>
@@ -74,6 +80,7 @@ Login.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    isLoading: state.authReducer.loading,
     isAuth: state.authReducer.isAuthenticated
   }
 }

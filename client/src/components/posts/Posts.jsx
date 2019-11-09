@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {getPosts} from "../../actions/post";
-import Spinner from "../layout/Spinner";
+import Spinner from "../spinner/Spinner";
 import PostItem from "./PostItem";
 import PostForm from "./PostForm";
 import Pusher from "pusher-js";
@@ -50,7 +50,11 @@ const Posts = (props) => {
 
   return (
     <div>
-      {props.loading && <Spinner />}
+      {props.isLoading && props.posts.length === 0 && (
+        <div className="spinner-container">
+          <Spinner />
+        </div>
+      )}
       {props.posts.length > 0 &&
         <React.Fragment>
           <h1 className="large text-primary">Posts</h1>
@@ -85,7 +89,7 @@ const Posts = (props) => {
 const mapStateToProps = (state) => {
   return {
     posts: state.postReducer.posts,
-    loading: state.postReducer.loading
+    isLoading: state.postReducer.loading
   }
 }
 
