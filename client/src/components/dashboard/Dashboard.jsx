@@ -7,9 +7,11 @@ import DashboardActions from "./DashboardActions";
 import Experience from "./Experience";
 import Education from "./Education";
 import Modal from "../confirm-modal/Modal";
+import setAuthToken from "../../utils/setAuthToken";
 
 const Dashboard = (props) => {
   useEffect(() => {
+    setAuthToken(props.token);
     props.getCurrentProfile()
     // eslint-disable-next-line
   }, []);
@@ -77,6 +79,7 @@ const Dashboard = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    token: state.authReducer.token,
     user: state.authReducer.user,
     profile: state.profileReducer.profile,
     isAuth: state.authReducer.isAuthenticated,

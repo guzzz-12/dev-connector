@@ -25,18 +25,18 @@ const EditProfile = (props) => {
     props.getCurrentProfile();
     props.profile && console.log(props.profile.skills)
     setFormData({
-      company: props.loading || !props.profile.company ? "" : props.profile.company,
-      website: props.loading || !props.profile.website ? "" : props.profile.website,
-      location: props.loading || !props.profile.location ? "" : props.profile.location,
-      status: props.loading || !props.profile.status ? "" : props.profile.status,
-      skills: props.loading || !props.profile.skills ? "" : props.profile.skills.join(", "),
-      githubUsername: props.loading || !props.profile.githubUsername ? "" : props.profile.githubUsername,
-      bio: props.loading || !props.profile.bio ? "" : props.profile.bio,
-      twitter: props.loading || !props.profile.social ? "" : props.profile.social.twitter,
-      facebook: props.loading || !props.profile.social ? "" : props.profile.social.facebook,
-      linkedin: props.loading || !props.profile.social ? "" : props.profile.social.linkedin,
-      youtube: props.loading || !props.profile.social ? "" : props.profile.social.youtube,
-      instagram: props.loading || !props.profile.social ? "" : props.profile.social.instagram,
+      company: !props.profile.company ? "" : props.profile.company,
+      website: !props.profile.website ? "" : props.profile.website,
+      location: !props.profile.location ? "" : props.profile.location,
+      status: !props.profile.status ? "" : props.profile.status,
+      skills: !props.profile.skills ? "" : props.profile.skills.join(", "),
+      githubUsername: !props.profile.githubUsername ? "" : props.profile.githubUsername,
+      bio: !props.profile.bio ? "" : props.profile.bio,
+      twitter: !props.profile.social ? "" : props.profile.social.twitter,
+      facebook: !props.profile.social ? "" : props.profile.social.facebook,
+      linkedin: !props.profile.social ? "" : props.profile.social.linkedin,
+      youtube: !props.profile.social ? "" : props.profile.social.youtube,
+      instagram: !props.profile.social ? "" : props.profile.social.instagram,
     })
     // eslint-disable-next-line
   }, []);
@@ -214,8 +214,7 @@ const EditProfile = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    profile: state.profileReducer.profile,
-    loading: state.authReducer.loading
+    profile: state.profileReducer.profile
   }
 }
 

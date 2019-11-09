@@ -13,12 +13,8 @@ import { CLEAR_PROFILE } from "../../actions/types";
 const Profile = (props) => {
   useEffect(() => {
     props.getProfile(props.match.params.userId);
-
-    return () => {
-      props.clearProfile()
-    }
     // eslint-disable-next-line
-  }, [props.getProfile]);
+  }, []);
 
   return (
     <React.Fragment>
