@@ -107,8 +107,8 @@ router.delete("/:postId", auth, async (req, res) => {
     }
     
     //Borrar el post
-    await Post.deleteOne({user: req.user.id});
-    const updatedPosts = await Post.find().sort({date: -1});
+    await Post.findOneAndDelete({_id: req.params.postId, user: req.user.id});
+    const updatedPosts = await Post.find();
 
     //Trigger para actualizar los posts en tiempo real en el frontend al borrar un post
     channels_client.trigger('posts', 'post-deleted', {
