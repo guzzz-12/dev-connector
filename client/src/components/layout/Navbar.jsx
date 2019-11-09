@@ -46,14 +46,12 @@ const Navbar = (props) => {
           <i className="fas fa-code"></i> DevConnector
         </Link>
       </h1>
-      {!props.auth.loading && (
-        <React.Fragment>
-          {props.auth.isAuthenticated ?
-            authLinks :
-            guestLinks
-          }
-        </React.Fragment>
-      )}     
+      <React.Fragment>
+        {props.isAuthenticated ?
+          authLinks :
+          guestLinks
+        }
+      </React.Fragment>    
     </nav>
   );
 }
@@ -65,7 +63,7 @@ Navbar.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.authReducer
+    isAuthenticated: state.authReducer.isAuthenticated
   }
 }
 

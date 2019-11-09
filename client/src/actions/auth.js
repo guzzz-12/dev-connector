@@ -7,6 +7,10 @@ import setAuthToken from "../utils/setAuthToken";
 //Chequear si hay usuario logueado
 export const loadUser = () => {
   return async (dispatch) => {
+    dispatch({
+      type: SET_LOADER
+    });
+    
     if(localStorage.token) {
       setAuthToken(localStorage.token);
     }
