@@ -1,10 +1,10 @@
-import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE, UPDATE_PROFILE, GET_PROFILES, GET_GITHUB_REPOS } from "../actions/types";
+import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE, UPDATE_PROFILE, GET_PROFILES, GET_GITHUB_REPOS, SET_PROFILE_LOADER } from "../actions/types";
 
 const initialState = {
   profile: null,
   profiles: [],
   repos: [],
-  loading: true,
+  loading: false,
   error: {}
 }
 
@@ -39,6 +39,11 @@ export default (state = initialState, action) => {
       return {
         ...initialState,
         loading: false
+      }
+    case SET_PROFILE_LOADER:
+      return {
+        ...state,
+        loading: true
       }
     default:
       return state

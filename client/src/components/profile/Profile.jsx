@@ -1,14 +1,13 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import Spinner from "../layout/Spinner";
+import Spinner from "../spinner/Spinner";
 import {getProfile} from "../../actions/profile";
 import ProfileTop from "./ProfileTop";
 import ProfileAbout from "./ProfileAbout";
 import ProfileExperience from "./ProfileExperience";
 import ProfileEducation from "./ProfileEducation";
 import ProfileRepos from "./ProfileRepos";
-import { CLEAR_PROFILE } from "../../actions/types";
 
 const Profile = (props) => {
   useEffect(() => {
@@ -18,7 +17,11 @@ const Profile = (props) => {
 
   return (
     <React.Fragment>
-      {!props.userProfile && props.loading && <Spinner />}
+      {!props.userProfile && props.loading && 
+        <div className="spinner-container">
+          <Spinner />
+        </div>
+      }
       {props.userProfile && 
         <React.Fragment>
           <div className="profile-grid my-1">
@@ -93,9 +96,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getProfile: (id) => {
       dispatch(getProfile(id))
-    },
-    clearProfile: () => {
-      dispatch({type: CLEAR_PROFILE})
     }
   }
 }

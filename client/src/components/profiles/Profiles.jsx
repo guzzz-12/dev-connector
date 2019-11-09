@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import Spinner from "../layout/Spinner";
+import Spinner from "../spinner/Spinner";
 import ProfileItem from "./ProfileItem";
 import {getProfiles} from "../../actions/profile";
 
@@ -17,7 +17,11 @@ const Profiles = (props) => {
         <i className="fab fa-connectdevelop"></i>
         {" "} Connect with developers
       </p>
-      {props.loading && <Spinner />}
+      {props.loading && 
+        <div className="spinner-container">
+          <Spinner />
+        </div>
+      }
       {!props.loading && props.profiles.length > 0 &&
         <React.Fragment>
           <div className="profiles">

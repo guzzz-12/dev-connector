@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {getCurrentProfile, deleteUserAccount} from "../../actions/profile";
-import Spinner from "../layout/Spinner";
+import Spinner from "../spinner/Spinner";
 import DashboardActions from "./DashboardActions";
 import Experience from "./Experience";
 import Education from "./Education";
@@ -38,8 +38,11 @@ const Dashboard = (props) => {
           id={null}
         />      
       }
-      {props.isLoading && props.profile === null ?
-        <Spinner /> :
+      {props.isLoading && !props.user ?
+        <div className="spinner-container">
+          <Spinner />
+        </div>
+        :
         <React.Fragment>
           <h1 className="large text-primary">Dashboard</h1>
           <p className="lead">
@@ -55,6 +58,7 @@ const Dashboard = (props) => {
               {props.profile.education.length > 0 && (
                 <Education education={props.profile.education} />
               )}
+              <br/>
               <button onClick={() => toggleModalHandler(true)} className="btn btn-danger">
                 <i className="fas fa-user-minus"></i>
                 {" "}Delete My Account

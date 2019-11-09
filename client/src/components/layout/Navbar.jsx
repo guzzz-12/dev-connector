@@ -1,7 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
 import {logout} from "../../actions/auth";
 
 const Navbar = (props) => {
@@ -54,11 +53,6 @@ const Navbar = (props) => {
       </React.Fragment>    
     </nav>
   );
-}
-
-Navbar.propTypes = {
-  logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => {

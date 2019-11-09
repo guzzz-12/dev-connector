@@ -1,11 +1,15 @@
 import axios from "axios";
 import {setAlert} from "./alert";
-import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE, CLEAR_PROFILE, DELETE_ACCOUNT, GET_PROFILES, GET_GITHUB_REPOS } from "./types";
+import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE, CLEAR_PROFILE, DELETE_ACCOUNT, GET_PROFILES, GET_GITHUB_REPOS, SET_PROFILE_LOADER } from "./types";
 import bcrypt from "bcryptjs";
 
 //Tomar el perfil del usuario actual
 export const getCurrentProfile = () => {
   return async (dispatch) => {
+    dispatch({
+      type: SET_PROFILE_LOADER
+    });
+
     try {
       const res = await axios({
         method: "GET",
@@ -34,6 +38,10 @@ export const getCurrentProfile = () => {
 //Tomar todos los perfiles de usuario
 export const getProfiles = () => {
   return async (dispatch) => {
+    dispatch({
+      type: SET_PROFILE_LOADER
+    });
+
     dispatch({type: CLEAR_PROFILE});
 
     try {
@@ -64,6 +72,10 @@ export const getProfiles = () => {
 //Tomar el perfil de un usuario mediante su ID
 export const getProfile = (userId) => {
   return async (dispatch) => {
+    dispatch({
+      type: SET_PROFILE_LOADER
+    });
+
     dispatch({type: CLEAR_PROFILE});
 
     try {

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {getGithubRepos} from "../../actions/profile";
-import Spinner from "../layout/Spinner";
+import Spinner from "../spinner/Spinner";
 
 const ProfileRepos = (props) => {
   useEffect(() => {
@@ -37,7 +37,9 @@ const ProfileRepos = (props) => {
     <React.Fragment>
       {props.repos.length > 0 ?
         renderRepos(props.repos) :
-        <Spinner />    
+        <div className="spinner-container">
+          <Spinner />
+        </div>    
       }
     </React.Fragment>
   );

@@ -23,3 +23,4 @@ export const GET_POST = "GET_POST";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const REMOVE_COMMENT = "REMOVE_COMMENT";
 export const SET_LOADER = "SET_LOADER";
+export const SET_PROFILE_LOADER = "SET_PROFILE_LOADER";
