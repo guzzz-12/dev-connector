@@ -2,10 +2,21 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
 const {check, validationResult} = require("express-validator");
+const Pusher = require("pusher");
 
 const User = require("../../models/User");
 const Profile = require("../../models/Profile");
 const Post = require("../../models/Post");
+
+//Inicializar pusher
+const channels_client = new Pusher({
+  appId: process.env.PUSHER_APP_ID,
+  key: process.env.PUSHER_KEY,
+  secret: process.env.PUSHER_SECRET,
+  cluster: 'us2',
+  useTLS: true
+});
+
 
 //Crear posts
 router.post("/",
@@ -32,6 +43,12 @@ router.post("/",
       }
 
       const post = await Post.create(newPost);
+
+      //Trigger para actualizar los posts en tiempo real en el frontend al crear un nuevo post
+      channels_client.trigger('posts', 'new-post', {
+        newPost: post
+      });
+
       res.json(post);
       
     } catch (error) {
@@ -93,6 +110,11 @@ router.delete("/:postId", auth, async (req, res) => {
     await Post.deleteOne({user: req.user.id});
     const updatedPosts = await Post.find().sort({date: -1});
 
+    //Trigger para actualizar los posts en tiempo real en el frontend al borrar un post
+    channels_client.trigger('posts', 'post-deleted', {
+      msg: "Post deleted"
+    });
+
     res.json(updatedPosts);
 
   } catch (error) {
@@ -126,6 +148,11 @@ router.patch("/like/:postId", auth, async (req, res) => {
     post.likes.unshift({user: req.user.id});
     await post.save();
 
+    //Trigger para actualizar los likes en tiempo real en el frontend
+    channels_client.trigger('posts', 'post-liked', {
+      msg: "Post liked"
+    });
+
     res.json(post.likes);
     
   } catch (error) {
@@ -157,6 +184,11 @@ router.patch("/unlike/:postId", auth, async (req, res) => {
       const likeIndex = post.likes.indexOf(userLike)
       post.likes.splice(likeIndex, 1);
       await post.save();
+
+      //Trigger para actualizar los likes en tiempo real en el frontend
+      channels_client.trigger('posts', 'post-unliked', {
+        msg: "Post unliked"
+      });
 
       return res.json(post.likes);
     }
@@ -205,6 +237,11 @@ router.post("/comment/:postId", [
       //Agregar el comentario al post
       post.comments.unshift(newComment);
       await post.save();
+
+      //Trigger para actualizar los comentarios del post en tiempo real en el frontend
+      channels_client.trigger('posts', 'post-comment-added', {
+        postId: post._id
+      });
       
       res.json(post.comments);
       
@@ -247,6 +284,11 @@ router.patch("/comment/:postId/:commentId", auth, async (req,res) => {
     const deletedCommentIndex = post.comments.indexOf(deletedComment);
     post.comments.splice(deletedCommentIndex, 1);
     await post.save();
+
+    //Trigger para actualizar los comentarios del post en tiempo real en el frontend
+    channels_client.trigger('posts', 'post-comment-removed', {
+      postId: post._id
+    });
     
     res.json(post.comments);
 

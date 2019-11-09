@@ -3,6 +3,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config({path: "./config.env"});
 const path = require("path");
+const cors = require("cors");
 
 const connectDB = require("./config/db");
 
@@ -13,7 +14,8 @@ const app = express();
 connectDB();
 
 //Middlewares
-app.use(express.json({extended: false}))
+app.use(express.json({extended: false}));
+app.use(cors());
 
 const port = process.env.PORT || 5000;
 
