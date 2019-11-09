@@ -11,7 +11,7 @@ import Pusher from "pusher-js";
 const Post = (props) => {
   useEffect(() => {
     //Inicialiazar pusher
-    const pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
+    const pusher = new Pusher("f313371965609ed3fcad", {
       cluster: 'us2',
       forceTLS: true
     });
