@@ -10,7 +10,7 @@ import Pusher from "pusher-js";
 const Posts = (props) => {
   useEffect(() => {
     //Inicializar pusher
-    const pusher = new Pusher('1ff5879796441f634f9b', {
+    const pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
       cluster: 'us2',
       forceTLS: true
     });
@@ -37,6 +37,14 @@ const Posts = (props) => {
     });
 
     props.getPosts()
+
+    return () => {
+      channel.unbind("new-post")
+      channel.unbind("post-deleted")
+      channel.unbind("post-liked")
+      channel.unbind("post-unliked")
+    }
+
     // eslint-disable-next-line
   }, [props.getPosts]);
 

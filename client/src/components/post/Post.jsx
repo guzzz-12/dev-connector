@@ -11,28 +11,35 @@ import Pusher from "pusher-js";
 const Post = (props) => {
   useEffect(() => {
     //Inicialiazar pusher
-    const pusher = new Pusher('1ff5879796441f634f9b', {
+    const pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
       cluster: 'us2',
       forceTLS: true
     });
     
     const channel = pusher.subscribe('posts');
 
-    //Subscripción a los comentarios de los posts
+    //Suscripción a los comentarios de los posts
     channel.bind('post-comment-added', (data) => {
       if(data.postId === props.match.params.postId) {
-        props.getPost(data.postId)
+        props.getPost(props.match.params.postId)
       }
     });
 
     channel.bind('post-comment-removed', (data) => {
       if(data.postId === props.match.params.postId) {
-        props.getPost(data.postId)
+        props.getPost(props.match.params.postId)
       }
     });
 
     //Cargar los posts
     props.getPost(props.match.params.postId)
+
+    //Desuscribirse de los channels de pusher al salirse del post
+    return () => {
+      channel.unbind("post-comment-added")
+      channel.unbind("post-comment-removed")
+    }
+
     // eslint-disable-next-line
   }, [props.getPost]);
 
